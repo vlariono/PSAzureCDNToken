@@ -78,7 +78,7 @@ function New-AzureCDNToken
     
     $tokenGenerator = New-Object -TypeName ecencryptstdlib.ECTokenGenerator
 
-    $cdnToken = $tokenGenerator.EncryptV3($Key,
+    [string]$cdnToken = $tokenGenerator.EncryptV3($Key,
         $ExpirationTimeSpan, 
         $ClientIPAddress, 
         $AllowedCountries -join ',', 
@@ -89,6 +89,11 @@ function New-AzureCDNToken
         $DeniedProtocol -join ',', 
         $AllowedUrls -join ','
     )
+
+    if ($cdnToken.Length -eq 0)
+    {
+        throw "Error encrypting token"
+    }
 
     [PSCustomObject]@{Token = $cdnToken}
 }
@@ -124,8 +129,14 @@ function Expand-AzureCDNToken
     
     $tokenGenerator = New-Object -TypeName ecencryptstdlib.ECTokenGenerator
 
-    $tokenProperties = $tokenGenerator.DecryptV3($Key, $Token, $true)
+    [string]$tokenProperties = $tokenGenerator.DecryptV3($Key, $Token, $true)
 
+    if ($tokenProperties.Length -eq 0)
+    {
+        throw "Error decrypting token"
+    }
+
+    # Convert returning string into object
     [PSCustomObject]($tokenProperties -replace '&',[System.Environment]::NewLine|ConvertFrom-StringData)
     
 }
