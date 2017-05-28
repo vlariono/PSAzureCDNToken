@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+  <ItemGroup Label="Dependency">
+    <PackageReference Include="BouncyCastle" Version="1.8.1" />
+    <PackageReference Include="System.Security.Cryptography.Algorithms" Version="4.3.0" />
+  </ItemGroup>
+  <ItemGroup Label="Files">
+    <None Include="PSAzureCdnToken.psm1" CopyToOutputDirectory="Always" />
+    <None Include="PSAzureCdnToken.psd1" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+  <Target Name="Build" />
+</Project>
