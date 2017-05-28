@@ -93,6 +93,18 @@ function New-AzureCDNToken
     [PSCustomObject]@{Token = $cdnToken}
 }
 
+<#
+.SYNOPSIS
+Decrypts Azure CDN token
+
+.DESCRIPTION
+https://docs.microsoft.com/en-us/azure/cdn/cdn-token-auth
+
+.EXAMPLE
+Expand-AzureCDNToken -Key 'Test' -Token $token.Token
+
+#>
+
 function Expand-AzureCDNToken
 {
     [CmdletBinding()]
